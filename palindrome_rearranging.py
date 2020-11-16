@@ -37,32 +37,38 @@ Input/Output
 
 
 def palindromeRearranging(inputString):
+
+    print(inputString)
     '''
     Conditions to meet:
 
     1: the length is even, and every unique character occurs a multiple of 2
     2: the length is odd, and every unique character occurs a multiple of 2 except one
     '''
-    can_convert_to_palindrome = True
-    string_lenght = len(inputString)
+    count_of_odds, can_convert_to_palindrome = 0, True
+    string_length = len(inputString)
 
     # Edge condition
-    if string_lenght == 1:
+    if string_length == 1:
         return True
 
     # Remove all duplicates. set() removes the duplicates, leaving just unique characters
     unique_characters = set(inputString)
 
-    # Check all characters occur even number of time
     for i in unique_characters:
         times = inputString.count(i)
         if times % 2 != 0:
-            can_convert_to_palindrome = False
+            can_convert_to_palindrome = False   # Condition 1
+            count_of_odds += 1                  # Condition 2
+
+    # Condition 2 (the length is odd)
+    if string_length % 2 != 0:
+        can_convert_to_palindrome = (count_of_odds == 1)
 
     return can_convert_to_palindrome
 
 
-print(palindromeRearranging("abca"))
+print(palindromeRearranging("abbcabb"))
 
 
 
