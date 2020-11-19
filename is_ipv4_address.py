@@ -21,8 +21,8 @@ def isIPv4Address(inputString):
         return False
 
     # inputString is IPV4 address
-    return matches.string == inputString
+    return True  # matches.string == inputString
 
 
-test_str = "25.24.0.0"
+test_str = "2.24.0.0"
 print(isIPv4Address(test_str))
