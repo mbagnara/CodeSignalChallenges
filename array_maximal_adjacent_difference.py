@@ -14,7 +14,7 @@ def arrayMaximalAdjacentDifference(inputArray):
         if k == 0:
             continue
 
-        diff = abs(v - prev_value)  # + 1
+        diff = abs(v - prev_value)
 
         list_with_differences.append(diff)
         prev_value = v
