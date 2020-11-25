@@ -34,31 +34,52 @@ def get_total(matrix, row, col):
     len_cols = len(matrix[0])
     len_rows = len(matrix)
 
-    # test = lambda v: 1 if v else 0
+    '''
+        Violation of PEP 8 (E731): Do not assign a lambda expression, use a def line.
+        https://www.flake8rules.com/rules/E731.html
+
+        The primary reason for this is debugging. Lambdas show as <lambda> in tracebacks, where functions will display the function’s name.
+
+        Anti-pattern:
+        root = lambda folder_name: os.path.join(BASE_DIR, folder_name)
+
+        Best practice:
+        def root(folder_name):
+            return os.path.join(BASE_DIR, folder_name)
+    '''
+    test = lambda v: 1 if v else 0
 
     if col - 1 > -1 and row - 1 > -1:
-        summation += add_element(matrix[row - 1][col - 1])
+        summation += test(matrix[row - 1][col - 1])
+
+        '''
+            Lambdas should not be assigned to a variable. Instead, they should be defined as functions.
+
+            Instead of creating the lambda function test,
+            it is a best practice to use def add_element(item):
+                ....
+        '''
 
     if col - 1 > -1:
-        summation += add_element(matrix[row][col - 1])
+        summation += test(matrix[row][col - 1])
 
     if row + 1 < len_rows and col - 1 > -1:
-        summation += add_element(matrix[row + 1][col - 1])
+        summation += test(matrix[row + 1][col - 1])
 
     if row - 1 > -1:
-        summation += add_element(matrix[row - 1][col])
+        summation += test(matrix[row - 1][col])
 
     if row - 1 > -1 and col + 1 < len_cols:
-        summation += add_element(matrix[row - 1][col + 1])
+        summation += test(matrix[row - 1][col + 1])
 
     if row + 1 < len_rows and col + 1 < len_cols:
-        summation += add_element(matrix[row + 1][col + 1])
+        summation += test(matrix[row + 1][col + 1])
 
     if col + 1 < len_cols:
-        summation += add_element(matrix[row][col + 1])
+        summation += test(matrix[row][col + 1])
 
     if row + 1 < len_rows:
-        summation += add_element(matrix[row + 1][col])
+        summation += test(matrix[row + 1][col])
 
     return summation
 
@@ -97,3 +118,8 @@ matrix = [[True, False, False, True],
 new_matrix = minesweeper(matrix)
 for i in new_matrix:
     print(i)
+
+
+# [0, 2, 2, 1]
+# [3, 4, 3, 3]
+# [1, 2, 3, 1]
