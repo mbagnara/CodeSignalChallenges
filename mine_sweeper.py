@@ -22,40 +22,43 @@ Rectangular matrix of the same size as matrix each cell of which contains an int
 '''
 
 
-def add_element(matrix, row, col):
-    summation = 0
+def add_element(item):
+    if item:
+        return 1
 
-    if col > len(matrix) or row == -1 or col == -1:
-        return 0
-
-    # If the IndexError occurs and matrix(row, col) is True then adds.
-    try:
-        if matrix[row][col]:
-            summation = 1
-    except IndexError:
-        summation = 0
-
-    return summation
+    return 0
 
 
 def get_total(matrix, row, col):
     summation = 0
+    len_cols = len(matrix[0])
+    len_rows = len(matrix)
 
-    # Sums horizontally
-    summation += add_element(matrix, row, col + 1)
-    summation += add_element(matrix, row, col - 1)
+    # test = lambda v: 1 if v else 0
 
-    # Sums vertically
-    summation += add_element(matrix, row - 1, col)
-    summation += add_element(matrix, row + 1, col)
+    if col - 1 > -1 and row - 1 > -1:
+        summation += add_element(matrix[row - 1][col - 1])
 
-    # Sums diagonally (upper)
-    summation += add_element(matrix, row - 1, col - 1)
-    summation += add_element(matrix, row - 1, col + 1)
+    if col - 1 > -1:
+        summation += add_element(matrix[row][col - 1])
 
-    # Sums diagonally (bottom)
-    summation += add_element(matrix, row + 1, col - 1)
-    summation += add_element(matrix, row + 1, col + 1)
+    if row + 1 < len_rows and col - 1 > -1:
+        summation += add_element(matrix[row + 1][col - 1])
+
+    if row - 1 > -1:
+        summation += add_element(matrix[row - 1][col])
+
+    if row - 1 > -1 and col + 1 < len_cols:
+        summation += add_element(matrix[row - 1][col + 1])
+
+    if row + 1 < len_rows and col + 1 < len_cols:
+        summation += add_element(matrix[row + 1][col + 1])
+
+    if col + 1 < len_cols:
+        summation += add_element(matrix[row][col + 1])
+
+    if row + 1 < len_rows:
+        summation += add_element(matrix[row + 1][col])
 
     return summation
 
@@ -82,18 +85,15 @@ matrix = [[True, False, False],
           [False, False, False]]
 
 
-matrix = [[False,False,False],
-          [False,False,False]]
+matrix = [[False, False, False],
+          [False, False, False]]
 
 
-matrix = [[True,False,False,True],
-          [False,False,True,False],
-          [True,True,False,True]]
+matrix = [[True, False, False, True],
+          [False, False, True, False],
+          [True, True, False, True]]
+
 
 new_matrix = minesweeper(matrix)
 for i in new_matrix:
     print(i)
-
-# print(new_matrix)
-# print("")
-# minesweeper(matrix)
